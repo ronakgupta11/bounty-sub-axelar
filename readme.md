@@ -1,8 +1,8 @@
 Contract deplyed to Polygon
-https://testnet.axelarscan.io/address/0x09BEc33F5ADe09f7D9cC70950D79D5DbA8e79f1c
+0x09BEc33F5ADe09f7D9cC70950D79D5DbA8e79f1c
 
 contract deployed on Avalanche
-https://testnet.axelarscan.io/address/0x09BEc33F5ADe09f7D9cC70950D79D5DbA8e79f1c
+0x5a657861ee6c3bC5933dE4d5539051985300a99B
 
 Txn on axelar scan
 https://testnet.axelarscan.io/gmp/0xd71073258ace43ebe70abe19fc391405dcf507719b56c2aa0a1e427b36149e8b
