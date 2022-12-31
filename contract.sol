@@ -9,10 +9,8 @@ import { IAxelarGasService } from '@axelar-network/axelar-gmp-sdk-solidity/contr
 contract DistributionExecutable is AxelarExecutable {
     IAxelarGasService public immutable gasReceiver;
 
-    // struct TransactionInfo to store transaction details
     struct TransactionInfo {
         address sender;
-        // address tokenAddress;
         uint256 amount;
         string message;
     }
@@ -32,12 +30,12 @@ contract DistributionExecutable is AxelarExecutable {
         address[] calldata destinationAddresses,
         string memory symbol,
         uint256 amount,
-        string memory message // Added message parameter
+        string memory message // Added message 
     ) external payable {
         address tokenAddress = gateway.tokenAddresses(symbol);
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), amount);
         IERC20(tokenAddress).approve(address(gateway), amount);
-        bytes memory payload = abi.encode(destinationAddresses, message, msg.sender); // <-- updated payload to include message
+        bytes memory payload = abi.encode(destinationAddresses, message, msg.sender); 
         if (msg.value > 0) {
             gasReceiver.payNativeGasForContractCallWithToken{ value: msg.value }(
                 address(this),
@@ -59,13 +57,13 @@ contract DistributionExecutable is AxelarExecutable {
         string calldata tokenSymbol,
         uint256 amount
     ) internal override {
-        (address[] memory recipients, string memory message, address sender) = abi.decode(payload, (address[], string, address)); // Decoding payload to get message and sender
+        (address[] memory recipients, string memory message, address sender) = abi.decode(payload, (address[], string, address));
         address tokenAddress = gateway.tokenAddresses(tokenSymbol);
         uint256 sentAmount = amount / recipients.length;
         for (uint256 i = 0; i < recipients.length; i++) {
             IERC20(tokenAddress).transfer(recipients[i], sentAmount);
-            TransactionInfo memory txnInfo = TransactionInfo(sender, sentAmount, message); // Create TransactionInfo struct
-            recipientsToTransactions[recipients[i]].push(txnInfo); // Store TransactionInfo struct in mapping
+            TransactionInfo memory txnInfo = TransactionInfo(sender, sentAmount, message);
+            recipientsToTransactions[recipients[i]].push(txnInfo);
 
         }
     }
